@@ -1,0 +1,13 @@
+original_Image = imread('2.jpg');
+
+if size(original_Image,3)==3
+original_Image = rgb2gray(original_Image);
+end
+
+noisy_Image = imnoise(original_Image,'gaussian',0,0.03);
+
+net = denoisingNetwork('DnCNN');
+denoised_Image = denoiseImage(noisy_Image, net);
+
+montage({original_Image, noisy_Image, denoised_Image})
+title('First one is original image, second one is noisy image and the third one is denoised image')
